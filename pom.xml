@@ -15,24 +15,26 @@
   <name>petclinic</name>
 
   <properties>
+
     <!-- Generic properties -->
     <java.version>17</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- Important for reproducible builds. Update using e.g. ./mvnw versions:set -DnewVersion=... -->
-    <project.build.outputTimestamp>2024-08-08T00:00:00Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2023-05-10T07:42:50Z</project.build.outputTimestamp>
 
     <!-- Web dependencies -->
     <webjars-bootstrap.version>5.3.3</webjars-bootstrap.version>
     <webjars-font-awesome.version>4.7.0</webjars-font-awesome.version>
 
-    <checkstyle.version>11.0.0</checkstyle.version>
-    <jacoco.version>0.8.17</jacoco.version>
+    <checkstyle.version>10.16.0</checkstyle.version>
+    <jacoco.version>0.8.12</jacoco.version>
     <libsass.version>0.2.29</libsass.version>
     <lifecycle-mapping>1.0.0</lifecycle-mapping>
     <maven-checkstyle.version>3.3.1</maven-checkstyle.version>
     <nohttp-checkstyle.version>0.0.11</nohttp-checkstyle.version>
     <spring-format.version>0.0.41</spring-format.version>
+
   </properties>
 
   <dependencies>
@@ -67,23 +69,20 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- Databases - Updated versions -->
+    <!-- Databases - Uses H2 by default -->
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <version>2.1.214</version> <!-- Updated version -->
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>com.mysql</groupId>
       <artifactId>mysql-connector-j</artifactId>
-      <version>8.1.1</version> <!-- Updated version -->
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.6.0</version> <!-- Updated version -->
       <scope>runtime</scope>
     </dependency>
 
@@ -91,12 +90,10 @@
     <dependency>
       <groupId>javax.cache</groupId>
       <artifactId>cache-api</artifactId>
-      <version>1.1.1</version>
     </dependency>
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>
       <artifactId>caffeine</artifactId>
-      <version>3.1.5</version> <!-- Updated version -->
     </dependency>
 
     <!-- Webjars -->
@@ -129,21 +126,19 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>1.18.2</version> <!-- Updated version -->
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>mysql</artifactId>
-      <version>1.18.2</version> <!-- Updated version -->
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>jakarta.xml.bind</groupId>
       <artifactId>jakarta.xml.bind-api</artifactId>
-      <version>3.0.2</version> <!-- Updated version -->
     </dependency>
+
   </dependencies>
 
   <build>
@@ -151,7 +146,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0-M3</version> <!-- Updated version -->
         <executions>
           <execution>
             <id>enforce-java</id>
@@ -161,7 +155,8 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <message>This build requires at least Java ${java.version}, update your JVM, and run the build again</message>
+                  <message>This build requires at least Java ${java.version}, update your JVM, and
+                    run the build again</message>
                   <version>${java.version}</version>
                 </requireJavaVersion>
               </rules>
@@ -220,7 +215,6 @@
       <plugin>
         <groupId>org.graalvm.buildtools</groupId>
         <artifactId>native-maven-plugin</artifactId>
-        <version>0.9.24</version> <!-- Updated version -->
       </plugin>
       <plugin>
         <groupId>org.springframework.boot</groupId>
@@ -278,7 +272,6 @@
       <plugin>
         <groupId>org.cyclonedx</groupId>
         <artifactId>cyclonedx-maven-plugin</artifactId>
-        <version>8.1.0</version> <!-- Updated version -->
       </plugin>
 
     </plugins>
@@ -340,7 +333,7 @@
             <executions>
               <execution>
                 <id>unpack</id>
-                <!-- Removed unnecessary m2e execute tag -->
+                <?m2e execute onConfiguration,onIncremental?>
                 <phase>generate-resources</phase>
                 <goals>
                   <goal>unpack</goal>
@@ -366,7 +359,7 @@
             <executions>
               <execution>
                 <phase>generate-resources</phase>
-                <!-- Removed unnecessary m2e execute tag -->
+                <?m2e execute onConfiguration,onIncremental?>
                 <goals>
                   <goal>compile</goal>
                 </goals>
