@@ -1,21 +1,16 @@
 version: 0.2
-
 phases:
   install:
     runtime-versions:
       java: corretto11
     commands:
-      - echo Installing dependencies
-      - yum install -y unzip  # Install unzip
-      - echo Downloading Maven
-      - curl -sL https://dlcdn.apache.org/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.zip -o apache-maven-3.9.8-bin.zip
-      - echo Extracting Maven
-      - mkdir -p /usr/local/apache-maven  # Create target directory
-      - unzip apache-maven-3.9.8-bin.zip -d /usr/local/apache-maven
-      - ln -s /usr/local/apache-maven/apache-maven-3.9.8 /usr/local/apache-maven/latest  # Create symlink for easier path management
-      - export M2_HOME=/usr/local/apache-maven/latest
+      - echo Installing Maven
+      - yum install -y unzip
+      - curl -sL
+https://apache.org/dyn/closer.cgi/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.zip
+| unzip -d /usr/local
+      - export M2_HOME=/usr/local/apache-maven-3.8.5
       - export PATH=$M2_HOME/bin:$PATH
-      - mvn --version  # Verify Maven installation
   build:
     commands:
       - echo Building the project
