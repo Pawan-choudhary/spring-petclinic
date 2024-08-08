@@ -1,13 +1,19 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
       java: corretto11
     commands:
       - echo Installing Maven
-      - curl -sL https://dlcdn.apache.org/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.zip | unzip -d /usr/local
+      - curl -sL https://dlcdn.apache.org/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.zip -o apache-maven-3.9.8-bin.zip
+      - ls -l apache-maven-3.9.8-bin.zip  # List file details
+      - file apache-maven-3.9.8-bin.zip    # Check file type
+      - unzip -l apache-maven-3.9.8-bin.zip  # List contents of the zip file
+      - unzip -o apache-maven-3.9.8-bin.zip -d /usr/local
       - export M2_HOME=/usr/local/apache-maven-3.9.8
       - export PATH=$M2_HOME/bin:$PATH
+      - mvn --version  # Verify Maven installation
   build:
     commands:
       - echo Building the project
