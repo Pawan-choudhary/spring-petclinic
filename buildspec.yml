@@ -4,21 +4,23 @@ phases:
   install:
     commands:
       - echo Installing dependencies...
-      - yum update -y
-      - yum install -y maven  # Install Maven
-      - mvn --version        # Verify Maven installation
+      - apt-get update -y                     # Update package list
+      - apt-get install -y openjdk-11-jdk      # Install Java (OpenJDK 11)
+      - apt-get install -y maven              # Install Maven
+      - java -version                         # Verify Java installation
+      - mvn --version                         # Verify Maven installation
 
   pre_build:
     commands:
       - echo Pre-build phase...
-      - mvn clean             # Clean up before building
+      - mvn clean                             # Clean up before building
 
   build:
     commands:
       - echo Building the project...
-      - mvn package -e         # Run mvn package with -e for detailed errors
+      - mvn package -e                        # Run mvn package with -e for detailed errors
       # OR (if you want full debug logging)
-      # - mvn package -X 
+      # - mvn package -X
 
   post_build:
     commands:
@@ -26,10 +28,10 @@ phases:
 
 artifacts:
   files:
-    - '**/*'  # Include all files
-  base-directory: 'target'  # This is where Maven typically places the build artifacts
-  discard-paths: no        # Keep directory structure in the artifact
+    - '**/*'                                # Include all files
+  base-directory: 'target'                  # This is where Maven typically places the build artifacts
+  discard-paths: no                         # Keep directory structure in the artifact
 
 cache:
   paths:
-    - '/root/.m2/**/*'  # Cache Maven dependencies to speed up builds
+    - '/root/.m2/**/*'                      # Cache Maven dependencies to speed up builds
