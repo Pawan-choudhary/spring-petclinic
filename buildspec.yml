@@ -1,30 +1,35 @@
 version: 0.2
- 
+
 phases:
   install:
     runtime-versions:
-      java: corretto11 # Specify the Java runtime version
+      java: corretto17 # Specify Java 17 runtime version
     commands:
+      - echo Verifying Java version...
+      - java -version # Ensure the correct Java version is being used
+      - javac -version # Ensure the correct Java compiler version is being used
       - echo Installing Maven...
-      - apt-get update
-      - apt-get install -y maven
- 
+      - curl -o apache-maven-3.9.1-bin.zip https://archive.apache.org/dist/maven/maven-3/3.9.1/binaries/apache-maven-3.9.1-bin.zip
+      - unzip apache-maven-3.9.1-bin.zip
+      - export M2_HOME=$PWD/apache-maven-3.9.1
+      - export PATH=$M2_HOME/bin:$PATH
+      - mvn -version # Validate Maven installation
+
   pre_build:
     commands:
-      - echo Checking out source code...
-      - mvn --version # Validate Maven installation
- 
+      - echo Caching Maven dependencies...
+      - mvn dependency:go-offline -B # Cache Maven dependencies
+
   build:
     commands:
       - echo Building the application...
-      - mvn clean package -DskipTests
- # Compile and package the application
+      - mvn clean package -DskipTests -B # Compile and package the application in batch mode
 
- 
- 
   post_build:
     commands:
       - echo Build completed successfully!
+      - mkdir -p target # Ensure target directory exists
+      - cp -r target/* $CODEBUILD_SRC_DIR/target/ 
  
 artifacts:
   files:
