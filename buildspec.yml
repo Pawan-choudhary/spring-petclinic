@@ -28,11 +28,7 @@ phases:
   post_build:
     commands:
       - echo Build completed successfully!
-      - echo Checking if target directory exists...
-      - if [ -d "target" ]; then echo "Target directory exists"; else echo "Target directory does not exist"; exit 1; fi
-      - echo Copying artifacts...
-      - mkdir -p $CODEBUILD_SRC_DIR/target
-      - cp -r target/* $CODEBUILD_SRC_DIR/target/ || { echo "Copy failed"; exit 1; }
+
 
 artifacts:
   files:
