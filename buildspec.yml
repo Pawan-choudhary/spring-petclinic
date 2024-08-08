@@ -1,18 +1,16 @@
 version: 0.2
+ 
 phases:
   install:
     runtime-versions:
       java: corretto11
     commands:
-      - echo Installing Maven
-      - yum install -y unzip
-      - curl -sL https://dlcdn.apache.org/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.zip | unzip -d /usr/local
-      - export M2_HOME=/usr/local/apache-maven-3.9.8
-      - export PATH=$M2_HOME/bin:$PATH
+      - echo Installing Maven...
+      - yum install -y maven
   build:
     commands:
-      - echo Building the project
-      - mvn clean package
+      - echo Building the project...
+      - mvn clean install
 artifacts:
   files:
     - target/*.jar
