@@ -4,11 +4,16 @@ phases:
   install:
     runtime-versions:
       java: corretto11
+  pre_build:
     commands:
-      - echo Installing Maven...
-      - yum install -y maven  # Ensure Maven is installed
+      - echo Nothing to do in the pre_build phase...
   build:
     commands:
-      - echo Building the project...
-      - mvn clean package  # Build the project and package it into JAR files
-      - ls -l target  # List the contents of the target directory for debugging
+      - echo Build started on `date`
+      - mvn install
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - target/messageUtil-1.0.jar
