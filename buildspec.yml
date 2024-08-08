@@ -1,16 +1,18 @@
 version: 0.2
- 
+
 phases:
   install:
     runtime-versions:
       java: corretto11
     commands:
       - echo Installing Maven...
-      - yum install -y maven
+      - yum install -y maven  # Ensure Maven is installed
   build:
     commands:
       - echo Building the project...
-      - mvn clean install
+      - mvn clean package  # Build the project and package it into JAR files
+      - ls -l target  # List the contents of the target directory for debugging
 artifacts:
   files:
-    - target/*.jar
+    - target/*.jar  # Specify the path to the JAR files to be collected as build artifacts
+  discard-paths: yes  # Optionally, discard the directory structure, saving only the files
