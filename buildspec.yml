@@ -6,15 +6,20 @@ phases:
       - echo Installing dependencies...
       - yum update -y
       - yum install -y maven  # Install Maven
-      - mvn --version  # Verify Maven installation
+      - mvn --version        # Verify Maven installation
+
   pre_build:
     commands:
       - echo Pre-build phase...
-      - mvn clean  # Clean up before building
+      - mvn clean             # Clean up before building
+
   build:
     commands:
       - echo Building the project...
-      - mvn package  # Package the application (jar/war files will be generated in the target directory)
+      - mvn package -e         # Run mvn package with -e for detailed errors
+      # OR (if you want full debug logging)
+      # - mvn package -X 
+
   post_build:
     commands:
       - echo Build completed.
@@ -23,7 +28,7 @@ artifacts:
   files:
     - '**/*'  # Include all files
   base-directory: 'target'  # This is where Maven typically places the build artifacts
-  discard-paths: no  # Keep directory structure in the artifact
+  discard-paths: no        # Keep directory structure in the artifact
 
 cache:
   paths:
