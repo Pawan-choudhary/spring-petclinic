@@ -6,10 +6,8 @@ phases:
     commands:
       - echo Installing Maven
       - yum install -y unzip
-      - curl -sL
-https://apache.org/dyn/closer.cgi/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.zip
-| unzip -d /usr/local
-      - export M2_HOME=/usr/local/apache-maven-3.8.5
+      - curl -sL https://dlcdn.apache.org/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.zip | unzip -d /usr/local
+      - export M2_HOME=/usr/local/apache-maven-3.9.8
       - export PATH=$M2_HOME/bin:$PATH
   build:
     commands:
