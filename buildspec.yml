@@ -1,15 +1,17 @@
 version: 0.2
-
+ 
 phases:
   install:
     runtime-versions:
       java: corretto11
     commands:
-      - echo Installing Maven...
-      - mvn --version
+      - echo Installing Maven
+      - curl -sL https://apache.org/dyn/closer.cgi/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.zip | unzip -d /usr/local
+      - export M2_HOME=/usr/local/apache-maven-3.8.5
+      - export PATH=$M2_HOME/bin:$PATH
   build:
     commands:
-      - echo Building the application...
+      - echo Building the project
       - mvn clean package
 artifacts:
   files:
