@@ -4,7 +4,7 @@
 echo "Stopping Apache server"
 
 # Stop the Apache service
-sudo systemctl stop httpd
+sudo systemctl stop apache2
 
 # Check if the Apache service stopped successfully
 if ! systemctl is-active --quiet httpd; then
